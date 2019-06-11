@@ -5,8 +5,8 @@
 !.vscode/extensions.json
 
 
-.vs/*
+/.vs/*
 .sln
-.
+
 .vcxproj
 .vcxproj.*
