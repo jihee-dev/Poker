@@ -1,0 +1,14 @@
+#pragma once
+
+enum EnHandCombination {
+	HIGHCARD,
+	PAIR,
+	TWOPAIR,
+	THREECARD,
+	STRAIGHT,
+	FLUSH,
+	FULLHOUSE,
+	FOURCARD,
+	STRAIGHTFLUSH,
+	ROYALFLUSH
+};
