@@ -62,10 +62,13 @@ public:
 		srand(time(NULL));
 		for (int i = 0; i < 2; i++) {
 			int randn = rand() % 53 + 1;
-			user_card[i].setImage(total_card[randn].getImage());
-			user_card[i].setNum(total_card[randn].getNum());
-			total_card[randn].setNum(0);
-			cout << user_card[i].getImage() << " " << user_card[i].getNum() << endl;
+
+			if (total_card[randn].getNum() != 0 || total_card[randn].getNum() != 100) {
+				user_card[i].setImage(total_card[randn].getImage());
+				user_card[i].setNum(total_card[randn].getNum());
+				total_card[randn].setNum(0);
+				cout << user_card[i].getImage() << " " << user_card[i].getNum() << endl;
+			}
 		}
 		cout << "--------------------------" << endl;
 		cout << endl;
@@ -95,4 +98,7 @@ public:
 		return user_card;
 	}
 
+	Card* getOpenCard() {
+		return this->opened_card;
+	}
 };

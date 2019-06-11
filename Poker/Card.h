@@ -5,8 +5,8 @@ using namespace std;
 
 class Card {
 private:
-	int Num;
-	string Image;
+	int Num; // 1 - 13
+	string Image; // "Club", "Heart", "Diamond", "Spade"
 public:
 	void setNum(int num) {
 		this->Num = num;

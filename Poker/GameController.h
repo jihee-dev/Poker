@@ -1,28 +1,38 @@
 #pragma once
 #include<iostream>
 #include<string>
-#include"User.h"
+// #include"User.h"
 #include"Dealer.h"
 #include"Card.h"
+#include"EnCard.h"
 #include"HandCombination.h"
-#include"Card2.h"
 
 using namespace std;
 
 class GameController {
 private:
-	Card openCards[5]; // 딜러가 카드를 셔플 후 오픈된 카드가 생기면 바로 초기화
-	Dealer* dealer;
+	EnCard openCards[5]; // 딜러가 카드를 셔플 후 오픈된 카드가 생기면 바로 초기화
+	 // Dealer* dealer;
+	int bettingMoney;
+	int playerNum;
+	EnCard UserCard[8][2];
+	User user[8];
 
 public:
 	GameController() {
-		dealer = new Dealer();
+		// dealer = new Dealer();
 	}
 
-	Card StructToClass(card2 c) {
-		Card* tempCard = new Card();
+	void setOpenCard(Card open[]) { // 오픈 카드 초기화
+		for (int i = 0; i < 5; i++) {
+			this->openCards[i] = this->StructToClass(open[i]);
+		}
+	}
 
-		switch (c.Num) {
+	EnCard StructToClass(Card c) {
+		EnCard* tempCard = new EnCard();
+
+		switch (c.getNum()) {
 		case 1:
 			tempCard->setNum(ACE);
 			break;
@@ -66,31 +76,23 @@ public:
 			break;
 		}
 
-		if (c.Image == "Space") {
+		if (c.getImage() == "Spade") {
 			tempCard->setShape(SPADE);
 		}
 
-		else if (c.Image == "Heart") {
+		else if (c.getImage() == "Heart") {
 			tempCard->setShape(HEART);
 		}
 
-		else if (c.Image == "Diamond") {
+		else if (c.getImage() == "Diamond") {
 			tempCard->setShape(DIAMOND);
 		}
 
-		else if (c.Image == "Clover") {
+		else if (c.getImage() == "Club") {
 			tempCard->setShape(CLUB);
 		}
 
 
-	}
-
-	void setOpenCards() {
-		// card2 tempOpen[5] =
-		for (int i = 0; i < 5; i++) {
-
-		}
-		// 딜러에게서 카드를 받아와서 셋팅
 	}
 
 	// 최종 7장의 카드(유저의 패 2장 + 오픈된 패 5장) 중 버릴 두 장의 카드를 선택
@@ -104,9 +106,9 @@ public:
 		return useCard;
 	}
 
-	EnHandCombination findCombination(Card useCard[5]) { // 유저의 카드패 정보가 User에 있다고 가정
+	EnHandCombination findCombination(EnCard useCard[5]) { // 유저의 카드패 정보가 User에 있다고 가정
 		EnHandCombination result = HIGHCARD;
-		Card temp;
+		EnCard temp;
 		bool straight = false;
 		bool royal = false;
 		bool flush = true;
@@ -228,35 +230,19 @@ public:
 		return NULL;
 	}
 
-	void playerNum() {
-		// 메인 함수 구현하면서 바디 구현
+	int askPlayerNum() {
+		do {
+			cout << "플레이어 수를 입력해 주세요(2-8): ";
+			cin >> this->playerNum;
+		} while ((this->playerNum > 1) && (this->playerNum < 9));
+		return this->playerNum;
 	}
 
-	/* int askBetting() {
-	char answer;
-	int betting;
-
-	while (true) {
-	cout << "베팅하시겠습니까? (y/n) ";
-	cin >> answer;
-
-	if (answer == 'y') {
-	cout << "베팅할 금액을 입력해 주세요: ";
-	cin >> betting;
-	return betting;
-	}
-
-	else if (answer == 'n') {
-	cout << "베팅을 종료합니다." << endl;
-	return 0;
-	}
-
-	else {
-	cout << "잘못 입력하셨습니다. 다시 입력해 주세요.";
-	}
-	}
-
-	return 0;
+	/*
+	void createUser(int n) {
+		for (int i = 0; i < n; i++) {
+			this->user[i] = new User();
+		}
 	} */
 
 };

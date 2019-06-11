@@ -1,11 +1,11 @@
 #pragma once
-#include"Num.h"
-#include"Shape.h"
+#include"EnNum.h"
+#include"EnShape.h"
 #include<string>
 
 using namespace std;
 
-class Card {
+class EnCard {
 private:
 	EnNum num;
 	EnShape shape;
