@@ -8,15 +8,17 @@
 using namespace std;
 class User {
 private:
-	Card user_card[2];
+	Card user_card[2];//유저 고유 카드 2장 
 public:
 	int assets;//유저의 자산
 	int betMoney; //배팅금액
 	string playerID;//유저ID
 	int whoisPlayer;//유저마다 파일입출력 파일을 다르게 만들기 위해 선언됨.(유저간의 구분을 위해)
-	// Controller에서 추가함
 	int fieldMoney;//필드에 깔린 금액.
 
+	User() {
+
+	}
 
 	User(int index) {//this->playerNum=index; Index값이 playerNum 값과 같음. +) 유저 참여수에 따라 case 를 더 추가할 예정.
 		switch (index) {
