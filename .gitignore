@@ -4,9 +4,8 @@
 !.vscode/launch.json
 !.vscode/extensions.json
 
+.vs/
 
-/.vs/*
-.sln
-
-.vcxproj
-.vcxproj.*
+Poker.sln
+Poker.vcxproj
+Poker.vcxproj.*
