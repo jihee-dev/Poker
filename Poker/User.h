@@ -42,6 +42,7 @@ public:
 		this->differplayer = playerID.substr(6);
 		ouser.close();
 	}
+
 	User() {
 		ofstream omoney;
 		string str3 = "=====Typing 0 to start Game===== ";
