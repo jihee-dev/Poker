@@ -28,7 +28,7 @@ public:
 			for (int j = 1; j <= 13; j++) {
 				square = 13 * i + j;
 				if (i == 0) {
-					total_card[square].setImage("Space");
+					total_card[square].setImage("Spade");
 				}
 				else if (i == 1) {
 					total_card[square].setImage("Heart");
@@ -37,7 +37,7 @@ public:
 					total_card[square].setImage("Diamond");
 				}
 				else {
-					total_card[square].setImage("Clover");
+					total_card[square].setImage("Club");
 				}
 				total_card[square].setNum(j);
 			}
@@ -47,13 +47,18 @@ public:
 
 
 	void Show() {
+		cout << endl;
+		cout << "현재 카드 정보 상태" << endl;
 		for (int i = 1; i <= 52; i++) {
 			cout << total_card[i].getImage() << " " << total_card[i].getNum() << endl;
 			Sleep(100);
 		}
+		cout << "----------------------" << endl;
 	}
 
 	void Shuffle() {
+		cout << endl;
+		cout << "-----두 장을 뽑습니다-----" << endl;
 		srand(time(NULL));
 		for (int i = 0; i < 2; i++) {
 			int randn = rand() % 53 + 1;
@@ -62,9 +67,13 @@ public:
 			total_card[randn].setNum(0);
 			cout << user_card[i].getImage() << " " << user_card[i].getNum() << endl;
 		}
+		cout << "--------------------------" << endl;
+		cout << endl;
 	}
 
 	void Shard_card() {
+		cout << endl;
+		cout << "-----공유카드를 뽑습니다-----" << endl;
 		for (int i = 0; i < 5; i++) {
 			while (1) {
 				int randn = rand() % 53 + 1;
@@ -79,6 +88,7 @@ public:
 		for (int i = 0; i < 5; i++) {
 			cout << opened_card[i].getImage() << " " << opened_card[i].getNum() << endl;
 		}
+		cout << "-----------------------------" << endl;
 	}
 
 	Card* getUserCard() {
