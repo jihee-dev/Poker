@@ -64,4 +64,4 @@ public:
 			cout << ID[m] << "\t\t" << Assets[m] << "\n" << endl;
 		}
 	}
-}
+};
