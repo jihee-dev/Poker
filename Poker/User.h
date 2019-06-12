@@ -15,8 +15,8 @@ private:
 	string playerID;//유저의ID
 	int assets;//유저의자산
 
-			   // Controller에서 추가
-	EnHandCombination combination;
+	// Controller에서 추가
+	EnHandCombination combination = NOTHING;
 
 public:
 	static string Total[30];
@@ -28,7 +28,6 @@ public:
 	}
 
 	User(string playerID) {//this->playerNum=index; Index값이 playerNum 값과 같음. +) 유저 참여수에 따라 case 를 더 추가할 예정.
-
 		string line;
 		string test[1000];
 		int str_cnt;
@@ -83,124 +82,44 @@ public:
 		return this->combination;
 	}
 
-	bool doBet() {//게임 컨트롤러 클래스의 askBetting() 함수를 끌어와서, 베팅을 할경우 함수 호출. 이외의 경우는, 함수 호출 안함.
+	string getPlayerID() {
+		return this->playerID;
+	}
+
+	int DoBet() {
 		char answer;
-		while (true) {
-			switch (whoisPlayer) {
-			case 1:
-			{
-				cout << "배팅하시겠습니까? (Y/N) ";
-				cin >> answer;
-				if (answer == 'Y'||answer=='y') {
-					while (true) {
-						cout << "배팅할 금액을 입력해 주세요: ";
-						cin >> betMoney;
-						if (betMoney > assets) {
-							cout << "보유 자산 초과. 다시 배팅해주세요." << endl;// 보유자산보다 배팅금액이 클 경우.
-						}
-						else {
-							ifstream ifs;
-							ifs.open("user1.txt");
-							for (int i = 0; i < 1; i++) {
-								ifs >> playerID >> assets;
-							}//파일 읽어옴
-							this->assets = (assets - betMoney);
-							ofstream ofs("user1.txt");//파일 저장
-							ofs << playerID <<" "<< assets;//파일 쓰기
-							cout << "배팅완료" << endl;
-							cout <<"============"<< this->playerID << "님의 남은 자산은" << this->assets << "입니다==========" << endl;
-							ofs.close();
-							Sleep(2000);
-							return true;
-						}// betMoney<=assets 일 경우=정상 배팅했을 경우
+		cout << "배팅하시겠습니까?(Y/N)" << endl;
+	inputBet:
+		cin >> answer;
 
-					}
-				}
-				else if (answer == 'N'|| answer == 'n') {
-					cout << "배팅을 종료합니다." << endl;
-					return false;
-				}
-				else {
-					cout << "잘못 입력하셨습니다. 다시 입력해 주세요.";
-				}
+		switch (answer) {
+			int BetMoney;
+		case 'Y':
+			while (1) {
+				cout << "추가 배팅금액을 입력해주세요." << endl;
+				cin >> BetMoney;
 
-			}
-			break;
-			case 2:
-			{
-				cout << "배팅하시겠습니까? (y/n) ";
-				cin >> answer;
-				if (answer == 'Y' || answer == 'y') {
-					while (true) {
-						cout << "배팅할 금액을 입력해 주세요: ";
-						cin >> betMoney;
-						if (betMoney > assets) {
-							cout << "배팅금액이 자산을 초과합니다. 다시 해주세요." << endl;
-						}
-						else {
-							ifstream ifs;
-							ifs.open("user2.txt");
-							for (int i = 0; i < 1; i++) {
-								ifs >> playerID >> assets;
-							}
-							this->assets = (assets - betMoney);
-							ofstream ofs("user2.txt");
-							ofs << playerID << " " << assets;
-							cout <<"==========="<< this->playerID << "님의 남은 자산은" << this->assets << "입니다=========" << endl;
-							ofs.close();
-							Sleep(2000);
-							return true;
-						}//정상배팅 했을경우.
-					}
-				}
-				else if (answer == 'n'||answer=='N') {
-					cout << "배팅을 종료합니다." << endl;
-					return false;
+				if (BetMoney > this->assets) {
+					cout << "자산보다 더 많은 금액을 입력하셨습니다." << endl;
 				}
 				else {
-					cout << "잘못 입력하셨습니다. 다시 입력해 주세요.";
+					this->assets = this->assets - BetMoney;
+					cout << "배팅에 성공하셨습니다." << endl;
+					return BetMoney;
+					break;
 				}
 			}
+		case 'N':
+			cout << "Die" << endl;
+			BetMoney = 0;
+			return BetMoney;
 			break;
-			case 3:
-			{
-				cout << "배팅하시겠습니까? (y/n) ";
-				cin >> answer;
-				if (answer == 'Y' || answer == 'y') {
-					while (true) {
-						cout << "배팅할 금액을 입력해 주세요: ";
-						cin >> betMoney;
-						if (betMoney > assets) {
-							cout << "배팅금액이 자산을 초과합니다. 다시 해주세요." << endl;
-						}
-						else{
-							ifstream ifs;
-							ifs.open("user3.txt");
-							for (int i = 0; i < 1; i++) {
-								ifs >> playerID >> assets;
-							}
-							this->assets = (assets - betMoney);
-							ofstream ofs("user3.txt");
-							ofs << playerID <<" "<< assets;
-							cout <<"=========="<< this->playerID << "님의 남은 자산은" << this->assets << "입니다===========" << endl;
-							ofs.close();
-							Sleep(2000);
-							return true;
-						}//정상배팅 했을경우.
-					}
-				}
-				else if (answer == 'n'||answer=='N') {
-					cout << "배팅을 종료합니다." << endl;
-					return false;
-				}
-				else {
-					cout << "잘못 입력하셨습니다. 다시 입력해 주세요.";
-				}
-			}
-			break;
-			}
+
+		default:
+			goto inputBet;
 		}
-	}//배팅할때 실시간으로 -되는 자산.즉, 배팅하는 함수. betMoney=>배팅금액 
+	}
+
 
 	void allAssetShow() {
 			cout << this->playerID << "님의 총 자산은" << this->assets << "입니다" << endl;

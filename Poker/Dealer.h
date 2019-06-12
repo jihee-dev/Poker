@@ -45,7 +45,6 @@ public:
 		}
 	}
 
-
 	void Show() {
 		cout << endl;
 		cout << "현재 카드 정보 상태" << endl;

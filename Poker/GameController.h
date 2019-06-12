@@ -295,17 +295,78 @@ public:
 
 	// 모든 플레이어의 정보를 가지고 있는 어떠한 클래스에서 유저 정보를 모두 가져옴
 	// User의 combination 값을 비교하여 가장 높은 족보를 가지고 있는 User를 리턴
-	User findWinner() {
-		User tempWinner;
+	int findWinner() { // 0, 1, 2
 		EnHandCombination high = NOTHING;
+		int tempWinner;
 
 		for (int i = 0; i < 3; i++) {
-			if (high < user[i].getCombination()) {
-				tempWinner = user[i];
+			if (high <= user[i].getCombination()) {
+				tempWinner = i;
 				high = user[i].getCombination();
 			}
 		}
+
 		return tempWinner;
+	}
+
+	int* Bet(int p[]) {
+		int livePlayer[3];
+		for (int i = 0; i < 3; i++) {
+			livePlayer[i] = p[i];
+		}
+
+		int tempMoney;
+		int betMoney = 0;
+		int each_money[3] = { 0, 0, 0 }; // 사용자가 라운드마다 베팅한 총 금액
+
+		int i = 0;
+		boolean flagBet;
+		boolean flagExit;
+
+		while (true) {
+			flagExit = true;
+
+			// i번째 플레이어에게 베팅 요청
+			if (livePlayer[i] != 0) {
+				do {
+					cout << "배팅 기준 금액: " << betMoney << endl;
+					cout << "현재 배팅 금액: " << each_money[i] << endl;
+					tempMoney = user[i].DoBet();
+					flagBet = (tempMoney == 0) || (tempMoney > betMoney);
+				} while (!flagBet);
+				
+				if (tempMoney != 0) {
+					each_money[i] += tempMoney;
+					betMoney = each_money[i];
+				}
+
+				else {
+					livePlayer[i] = 0;
+				}
+			}
+			
+			// 플레이어들의 베팅 금액이 동일해졌는지 확인
+			for (int j = 0; j < 3; j++) {
+				if ((livePlayer[j] != 0) && (each_money[i] != betMoney)) {
+					flagExit = false;
+				}
+			}
+			
+			if (flagExit) {
+				return livePlayer;
+			}
+
+
+			if (i != 2) {
+				i++;
+			}
+
+			else {
+				i = 0;
+			}
+		}
+
+		return livePlayer;
 	}
 
 	/*
