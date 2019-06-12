@@ -59,7 +59,16 @@ public:
 		// 첫 번째 베팅
 		cout << "첫 번째 베팅을 시작합니다" << endl;
 		livePtr = controller->Bet(live, user);
-		
+
+		tempPlayerNum = 0;
+
+		for (int i = 0; i < 3; i++) {
+			live[i] = livePtr[i];
+			if (live[i] == 1) {
+				tempPlayerNum++;
+			}
+		}
+
 		for (int i = 0; i < 3; i++)
 		{
 			int idx;
@@ -73,15 +82,6 @@ public:
 
 			int* tempF = controller->getEachMoney();
 			fileIO->setMoney(idx, fileIO->getMoneys()[idx] - tempF[i]);
-		}
-
-		tempPlayerNum = 0;
-
-		for (int i = 0; i < 3; i++) {
-			live[i] = livePtr[i];
-			if (live[i] == 1) {
-				tempPlayerNum++;
-			}
 		}
 
 		if (tempPlayerNum == 1) {
@@ -99,6 +99,15 @@ public:
 		cout << "두 번째 베팅을 시작합니다" << endl;
 		livePtr = controller->Bet(live, user);
 
+		tempPlayerNum = 0;
+
+		for (int i = 0; i < 3; i++) {
+			live[i] = livePtr[i];
+			if (live[i] == 1) {
+				tempPlayerNum++;
+			}
+		}
+
 		for (int i = 0; i < 3; i++)
 		{
 			int idx;
@@ -112,15 +121,6 @@ public:
 
 			int* tempF = controller->getEachMoney();
 			fileIO->setMoney(idx, fileIO->getMoneys()[idx] - tempF[i]);
-		}
-
-		tempPlayerNum = 0;
-
-		for (int i = 0; i < 3; i++) {
-			live[i] = livePtr[i];
-			if (live[i] == 1) {
-				tempPlayerNum++;
-			}
 		}
 
 		if (tempPlayerNum == 1) {
@@ -138,6 +138,15 @@ public:
 		cout << "세 번째 베팅을 시작합니다" << endl;
 		livePtr = controller->Bet(live, user);
 
+		tempPlayerNum = 0;
+
+		for (int i = 0; i < 3; i++) {
+			live[i] = livePtr[i];
+			if (live[i] == 1) {
+				tempPlayerNum++;
+			}
+		}
+
 		for (int i = 0; i < 3; i++)
 		{
 			int idx;
@@ -151,15 +160,6 @@ public:
 
 			int* tempF = controller->getEachMoney();
 			fileIO->setMoney(idx, fileIO->getMoneys()[idx] - tempF[i]);
-		}
-
-		tempPlayerNum = 0;
-
-		for (int i = 0; i < 3; i++) {
-			live[i] = livePtr[i];
-			if (live[i] == 1) {
-				tempPlayerNum++;
-			}
 		}
 
 		if (tempPlayerNum == 1) {
@@ -177,6 +177,15 @@ public:
 		cout << "마지막 베팅을 시작합니다" << endl;
 		livePtr = controller->Bet(live, user);
 
+		tempPlayerNum = 0;
+
+		for (int i = 0; i < 3; i++) {
+			live[i] = livePtr[i];
+			if (live[i] == 1) {
+				tempPlayerNum++;
+			}
+		}
+
 		for (int i = 0; i < 3; i++)
 		{
 			int idx;
@@ -190,15 +199,6 @@ public:
 
 			int* tempF = controller->getEachMoney();
 			fileIO->setMoney(idx, fileIO->getMoneys()[idx] - tempF[i]);
-		}
-
-		tempPlayerNum = 0;
-
-		for (int i = 0; i < 3; i++) {
-			live[i] = livePtr[i];
-			if (live[i] == 1) {
-				tempPlayerNum++;
-			}
 		}
 
 		if (tempPlayerNum == 1) {
