@@ -4,6 +4,7 @@
 #include <fstream>
 #include "Dealer.h"
 #include "Card.h"
+#include"HandCombination.h"
 
 using namespace std;
 class User {
@@ -14,6 +15,9 @@ public:
 	int whoisPlayer;//유저마다 파일입출력 파일을 다르게 만들기 위해 선언됨.(유저간의 구분을 위해)
 	string playerID;//유저의ID
 	int assets;//유저의자산
+
+	// Controller에서 추가
+	EnHandCombination combination;
 
 	User() {
 
@@ -98,6 +102,14 @@ public:
 		break;
 		}
 	}//객체를 만들면 유저의 ID와 자산의 DB가 파일에 저장됨.
+
+	Card* getUserCard() {
+		return user_card;
+	}
+
+	EnHandCombination getCombination() {
+		return this->combination;
+	}
 
 	bool doBet() {//게임 컨트롤러 클래스의 askBetting() 함수를 끌어와서, 베팅을 할경우 함수 호출. 이외의 경우는, 함수 호출 안함.
 		char answer;

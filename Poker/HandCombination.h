@@ -1,6 +1,7 @@
 #pragma once
 
 enum EnHandCombination {
+	NOTHING,
 	HIGHCARD,
 	PAIR,
 	TWOPAIR,

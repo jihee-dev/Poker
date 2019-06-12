@@ -163,8 +163,13 @@ public:
 			flagSelect = (select1 > 0) && (select1 < 8) && (select1 != select2);
 		} while (!flagSelect);
 		
-		for (int i = 0; i < 5; i++) {
+		int idx = 0;
 
+		for (int i = 0; i < 7; i++) {
+			if ((i != select1 - 1) && (i != select2 - 1)) {
+				useCard[idx] = selectCard[i];
+				idx++;
+			}
 		}
 
 		return useCard;
@@ -291,7 +296,16 @@ public:
 	// 모든 플레이어의 정보를 가지고 있는 어떠한 클래스에서 유저 정보를 모두 가져옴
 	// User의 combination 값을 비교하여 가장 높은 족보를 가지고 있는 User를 리턴
 	User findWinner() {
-		return;
+		User tempWinner;
+		EnHandCombination high = NOTHING;
+
+		for (int i = 0; i < 3; i++) {
+			if (high < user[i].getCombination()) {
+				tempWinner = user[i];
+				high = user[i].getCombination();
+			}
+		}
+		return tempWinner;
 	}
 
 	/*

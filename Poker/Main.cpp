@@ -1,13 +1,39 @@
 #include<iostream>
 #include"GameController.h"
 #include"User.h"
+#include"Board.h"
 
 using namespace std;
 
 class Main {
 public:
 	int main() {
-		playingGame();
+		Board* board = new Board();
+
+		int select;
+		cout << "======= Poker with C++ =======" << endl;
+		cout << "1. 게임시작" << endl;
+		cout << "2. 랭킹" << endl;
+		cout << "3. 나가기" << endl;
+
+		cin >> select;
+
+		switch (select) {
+
+		case 1: //게임 시작
+			playingGame();
+			break;
+
+		case 2:
+			board->rankSort();
+			break;
+
+		case 3:
+			return 0;
+
+		default:
+			break;
+		}
 	}
 
 	void playingGame() {
@@ -72,14 +98,14 @@ public:
 		// 마지막 베팅
 
 
-		// 최종 카드 결정
-
-
-		// 사용자 족보 판정
+		// 최종 카드 결정, 사용자 족보 판정
+		for (int i = 0; i < 3; i++) {
+			controller->findCombination(controller->askCard(i));
+		}
 
 
 		// 최종 우승자 판정
-
+		controller->findWinner();
 
 		// 사용자에게 베팅 금액 추가
 		
@@ -88,26 +114,5 @@ public:
 
 
 		// 종료
-	}
-
-	boolean checkId(string id) {
-		ifstream ifs;
-		string fileName = "userID.txt";
-		string temp;
-
-		ifs.open(fileName.c_str());
-
-		if (!ifs) {
-			cout << "Unable to open file!" << endl;
-			exit(0);
-		}
-
-		while (ifs >> temp) {
-			if (temp == id) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 };
