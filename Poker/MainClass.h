@@ -36,7 +36,8 @@ public:
 				tempMoney = fileIO->checkID(tempId);
 			} while (tempMoney == -1);
 
-			StaticUser::user[i] = *(new User(tempId, tempMoney));
+			user[i] = *(new User(tempId, tempMoney));
+
 			//user[i] = *(new User(tempId, tempMoney));
 			cout << tempId << "객체가 생성되었습니다!" << endl;
 			cout << user[i].getPlayerID() << " " << user[i].getAssets() << endl;
