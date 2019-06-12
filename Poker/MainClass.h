@@ -59,13 +59,22 @@ public:
 		// 첫 번째 베팅
 		cout << "첫 번째 베팅을 시작합니다" << endl;
 		livePtr = controller->Bet(live, user);
+		
 		for (int i = 0; i < 3; i++)
 		{
-			int* tempF = controller->getEachMoney();
-			for (int j = 0; j < 3; j++) {
-				fileIO->setMoney(i, tempF[i]);
+			int idx;
+
+			for (int j = 0; j < 15; j++) {
+				if (fileIO->getIDs[j]() == user[i].getPlayerID()) {
+					idx = j;
+					break;
+				}
 			}
+
+			int* tempF = controller->getEachMoney();
+			fileIO->setMoney(idx, fileIO->getMoney[idx]() - tempF[i]);
 		}
+
 		tempPlayerNum = 0;
 
 		for (int i = 0; i < 3; i++) {
@@ -90,7 +99,23 @@ public:
 		cout << "두 번째 베팅을 시작합니다" << endl;
 		livePtr = controller->Bet(live, user);
 
+		for (int i = 0; i < 3; i++)
+		{
+			int idx;
+
+			for (int j = 0; j < 15; j++) {
+				if (fileIO->getIDs[j]() == user[i].getPlayerID()) {
+					idx = j;
+					break;
+				}
+			}
+
+			int* tempF = controller->getEachMoney();
+			fileIO->setMoney(idx, fileIO->getMoney[idx]() - tempF[i]);
+		}
+
 		tempPlayerNum = 0;
+
 		for (int i = 0; i < 3; i++) {
 			live[i] = livePtr[i];
 			if (live[i] == 1) {
@@ -101,6 +126,7 @@ public:
 		if (tempPlayerNum == 1) {
 			goto end;
 		}
+
 		this->totalBetting += controller->getBetMoney();
 		cout << this->totalBetting << endl;
 
@@ -109,10 +135,25 @@ public:
 		cout << endl;
 
 		// 세 번째 베팅
-		cout << "세 번째 베팅을 시작합니다" << endl;
 		livePtr = controller->Bet(live, user);
 
+		for (int i = 0; i < 3; i++)
+		{
+			int idx;
+
+			for (int j = 0; j < 15; j++) {
+				if (fileIO->getIDs[j]() == user[i].getPlayerID()) {
+					idx = j;
+					break;
+				}
+			}
+
+			int* tempF = controller->getEachMoney();
+			fileIO->setMoney(idx, fileIO->getMoney[idx]() - tempF[i]);
+		}
+
 		tempPlayerNum = 0;
+
 		for (int i = 0; i < 3; i++) {
 			live[i] = livePtr[i];
 			if (live[i] == 1) {
@@ -123,17 +164,34 @@ public:
 		if (tempPlayerNum == 1) {
 			goto end;
 		}
+
 		this->totalBetting += controller->getBetMoney();
 		cout << this->totalBetting << endl;
+
 		// 마지막 카드 오픈 (오픈-3)
 		controller->showOpenCard(3);
 		cout << endl;
 
 		// 마지막 베팅
-		cout << "마지막 베팅을 시작합니다" << endl;
 		livePtr = controller->Bet(live, user);
 
+		for (int i = 0; i < 3; i++)
+		{
+			int idx;
+
+			for (int j = 0; j < 15; j++) {
+				if (fileIO->getIDs[j]() == user[i].getPlayerID()) {
+					idx = j;
+					break;
+				}
+			}
+
+			int* tempF = controller->getEachMoney();
+			fileIO->setMoney(idx, fileIO->getMoney[idx]() - tempF[i]);
+		}
+
 		tempPlayerNum = 0;
+
 		for (int i = 0; i < 3; i++) {
 			live[i] = livePtr[i];
 			if (live[i] == 1) {
@@ -144,17 +202,16 @@ public:
 		if (tempPlayerNum == 1) {
 			goto end;
 		}
+
 		this->totalBetting += controller->getBetMoney();
 		cout << this->totalBetting << endl;
+
 		// 최종 카드 결정, 사용자 족보 판정
 		for (int i = 0; i < 3; i++) {
 			if (live[i] != 0) {
-
 				user[i].setCombination(controller->askCard(i));
-
 			}
 		}
-
 		goto end;
 
 	end:
@@ -183,6 +240,7 @@ public:
 
 		// 파일 출력
 		fileIO->fileSave();
+
 		// 종료
 		cout << endl;
 		cout << "게임이 종료되었습니다!!" << endl;
