@@ -19,6 +19,7 @@ public:
 		int* livePtr;
 		int tempPlayerNum = 0;
 		User winner;
+		User user[3];
 
 
 		// 유저 생성 > 플레이어 수만큼
@@ -38,7 +39,7 @@ public:
 			StaticUser::user[i] = *(new User(tempId, tempMoney));
 			//user[i] = *(new User(tempId, tempMoney));
 			cout << tempId << "객체가 생성되었습니다!" << endl;
-			cout << StaticUser::user[i].getPlayerID() << " " << StaticUser::user[i].getAssets() << endl;
+			cout << user[i].getPlayerID() << " " << user[i].getAssets() << endl;
 		}
 		cout << endl;
 
@@ -50,8 +51,8 @@ public:
 		// 사용자 카드 셋팅
 		for (int i = 0; i < playerNum; i++) {
 			dealer->Shuffle();
-			StaticUser::user[i].playerDeck(*dealer);
-			controller->setUserCards(StaticUser::user[i].getUserCard(), i);
+			user[i].playerDeck(*dealer);
+			controller->setUserCards(user[i].getUserCard(), i);
 		}
 
 		// 첫 번째 베팅
@@ -138,13 +139,13 @@ public:
 		if (tempPlayerNum == 1) {
 			for (int i = 0; i < 3; i++) {
 				if (live[i] == 1) {
-					winner = StaticUser::user[i];
+					winner = user[i];
 				}
 			}
 		}
 
 		else {
-			winner = StaticUser::user[controller->findWinner()];
+			winner = user[controller->findWinner()];
 		}
 
 		cout << "Winner is " << winner.getPlayerID() << endl;
