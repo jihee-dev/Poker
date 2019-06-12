@@ -84,12 +84,12 @@ public:
 			fileIO->setMoney(idx, fileIO->getMoneys()[idx] - tempF[i]);
 		}
 
+		this->totalBetting += controller->getBetMoney();
+		cout << this->totalBetting << endl;
+
 		if (tempPlayerNum == 1) {
 			goto end;
 		}
-
-		this->totalBetting += controller->getBetMoney();
-		cout << this->totalBetting << endl;
 
 		// 세 개의 카드 오픈(오픈-1)
 		controller->showOpenCard(1);
@@ -123,12 +123,12 @@ public:
 			fileIO->setMoney(idx, fileIO->getMoneys()[idx] - tempF[i]);
 		}
 
+		this->totalBetting += controller->getBetMoney();
+		cout << this->totalBetting << endl;
+
 		if (tempPlayerNum == 1) {
 			goto end;
 		}
-
-		this->totalBetting += controller->getBetMoney();
-		cout << this->totalBetting << endl;
 
 		// 한 개의 카드 오픈(네 번째) (오픈-2)
 		controller->showOpenCard(2);
@@ -162,12 +162,12 @@ public:
 			fileIO->setMoney(idx, fileIO->getMoneys()[idx] - tempF[i]);
 		}
 
+		this->totalBetting += controller->getBetMoney();
+		cout << this->totalBetting << endl;
+
 		if (tempPlayerNum == 1) {
 			goto end;
 		}
-
-		this->totalBetting += controller->getBetMoney();
-		cout << this->totalBetting << endl;
 
 		// 마지막 카드 오픈 (오픈-3)
 		controller->showOpenCard(3);
@@ -201,12 +201,12 @@ public:
 			fileIO->setMoney(idx, fileIO->getMoneys()[idx] - tempF[i]);
 		}
 
+		this->totalBetting += controller->getBetMoney();
+		cout << this->totalBetting << endl;
+
 		if (tempPlayerNum == 1) {
 			goto end;
 		}
-
-		this->totalBetting += controller->getBetMoney();
-		cout << this->totalBetting << endl;
 
 		// 최종 카드 결정, 사용자 족보 판정
 		for (int i = 0; i < 3; i++) {
