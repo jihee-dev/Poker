@@ -8,17 +8,20 @@
 using namespace std;
 
 class MainClass {
+private:
+	int playerNum = 3;
+	User user[3];
+	int live[3] = { 1, 1, 1 };
+	int* livePtr;
+	int tempPlayerNum = 0;
+	User winner;
+	int totalBetting = 0;
+
 public:
 	void playingGame() {
 		GameController* controller = new GameController();
 		Dealer* dealer = new Dealer();
 		FileIO* fileIO = new FileIO();
-		int playerNum = 3;
-		User user[3];
-		int live[3] = { 1, 1, 1 };
-		int* livePtr;
-		int tempPlayerNum = 0;
-		User winner;
 
 
 		// 유저 생성 > 플레이어 수만큼
@@ -53,9 +56,10 @@ public:
 		}
 
 		// 첫 번째 베팅
-		livePtr = controller->Bet(live);
-
+		cout << "첫 번째 베팅을 시작합니다" << endl;
+		livePtr = controller->Bet(live, user);
 		tempPlayerNum = 0;
+
 		for (int i = 0; i < 3; i++) {
 			live[i] = livePtr[i];
 			if (live[i] == 1) {
@@ -66,13 +70,17 @@ public:
 		if (tempPlayerNum == 1) {
 			goto end;
 		}
+
+		this->totalBetting += controller->getBetMoney();
+		cout << this->totalBetting << endl;
 
 		// 세 개의 카드 오픈(오픈-1)
 		controller->showOpenCard(1);
 		cout << endl;
 
 		// 두 번째 베팅
-		livePtr = controller->Bet(live);
+		cout << "두 번째 베팅을 시작합니다" << endl;
+		livePtr = controller->Bet(live, user);
 
 		tempPlayerNum = 0;
 		for (int i = 0; i < 3; i++) {
@@ -86,12 +94,15 @@ public:
 			goto end;
 		}
 
+		this->totalBetting += controller->getBetMoney();
+
 		// 한 개의 카드 오픈(네 번째) (오픈-2)
 		controller->showOpenCard(2);
 		cout << endl;
 
 		// 세 번째 베팅
-		livePtr = controller->Bet(live);
+		cout << "세 번째 베팅을 시작합니다" << endl;
+		livePtr = controller->Bet(live, user);
 
 		tempPlayerNum = 0;
 		for (int i = 0; i < 3; i++) {
@@ -110,7 +121,8 @@ public:
 		cout << endl;
 
 		// 마지막 베팅
-		livePtr = controller->Bet(live);
+		cout << "마지막 베팅을 시작합니다" << endl;
+		livePtr = controller->Bet(live, user);
 
 		tempPlayerNum = 0;
 		for (int i = 0; i < 3; i++) {
@@ -127,9 +139,26 @@ public:
 		// 최종 카드 결정, 사용자 족보 판정
 		for (int i = 0; i < 3; i++) {
 			if (live[i] != 0) {
-				controller->findCombination(controller->askCard(i));
+				// EnCard useCard[5];
+				// cout << controller->askCard(i) << endl;
+				user[i].setCombination(controller->askCard(i));
+				/*
+				for (int j = 0; j < 5; j++) {
+					useCard[j] = ask[i];
+				} */
+
+				//cout << "잘 들어갈까요??" << endl;
+				/* for (int j = 0; j < 5; j++) {
+					ask[j].showCard();
+				} */
+
+				// ask[0].showCard();
+
+				// controller->findCombination(ask);
 			}
 		}
+
+		goto end;
 
 	end:
 		// 최종 우승자 판정
@@ -142,7 +171,7 @@ public:
 		}
 
 		else {
-			winner = user[controller->findWinner()];
+			winner = user[controller->findWinner(user)];
 		}
 
 		cout << "Winner is " << winner.getPlayerID() << endl;
@@ -154,6 +183,6 @@ public:
 
 
 		// 종료
-		return;
+
 	}
 };

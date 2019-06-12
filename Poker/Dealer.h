@@ -60,13 +60,16 @@ public:
 		cout << "-----두 장을 뽑습니다-----" << endl;
 		srand(time(NULL));
 		for (int i = 0; i < 2; i++) {
-			int randn = rand() % 53 + 1;
+			while (1) {
+				int randn = rand() % 53 + 1;
 
-			if (total_card[randn].getNum() != 0 || total_card[randn].getNum() != 100) {
-				user_card[i].setImage(total_card[randn].getImage());
-				user_card[i].setNum(total_card[randn].getNum());
-				total_card[randn].setNum(0);
-				cout << user_card[i].getImage() << " " << user_card[i].getNum() << endl;
+				if (total_card[randn].getNum() != 0 && total_card[randn].getNum() != 100) {
+					user_card[i].setImage(total_card[randn].getImage());
+					user_card[i].setNum(total_card[randn].getNum());
+					total_card[randn].setNum(0);
+					cout << user_card[i].getImage() << " " << user_card[i].getNum() << endl;
+					break;
+				}
 			}
 		}
 		cout << "--------------------------" << endl;

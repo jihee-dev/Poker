@@ -13,7 +13,7 @@ class GameController {
 private:
 	EnCard openCards[5]; // 딜러가 카드를 셔플 후 오픈된 카드가 생기면 바로 초기화
 						 // Dealer* dealer;
-	int bettingMoney;
+	int bettingMoney = 0;
 	int playerNum = 3;
 	EnCard userCard[3][2];
 	User user[3];
@@ -130,7 +130,7 @@ public:
 	// 최종 7장의 카드(유저의 패 2장 + 오픈된 패 5장) 중 버릴 두 장의 카드를 선택
 	// View 쪽의 버튼 리스너와 협업하여 작성
 
-	EnCard* askCard(int userNum) { // 0, 1, 2
+	EnHandCombination askCard(int userNum) { // 0, 1, 2
 		EnCard selectCard[7];
 		EnCard useCard[5];
 		for (int i = 0; i < 5; i++) {
@@ -168,14 +168,16 @@ public:
 		for (int i = 0; i < 7; i++) {
 			if ((i != select1 - 1) && (i != select2 - 1)) {
 				useCard[idx] = selectCard[i];
+				// cout << useCard[idx].printShape(useCard[idx].getShape()) << " " << useCard[idx].printNum(useCard[idx].getNum()) << endl;
 				idx++;
 			}
 		}
 
-		return useCard;
-	}
+		for (int i = 0; i < 5; i++) {
+			useCard[i].showCard();
+		}
 
-	EnHandCombination findCombination(EnCard useCard[5]) { // 유저의 카드패 정보가 User에 있다고 가정
+		// 족보 판정 시작
 		EnHandCombination result = HIGHCARD;
 		EnCard temp;
 		bool straight = false;
@@ -184,6 +186,12 @@ public:
 		bool fourCard = false;
 		bool threeCard = false;
 		int pairNum = 0;
+
+		/*
+		cout << "findCombination에서 잘 넘어왔을까요??" << endl;
+		for (int i = 0; i < 5; i++) {
+			cout << useCard[i].printShape(useCard[i].getShape()) << " " << useCard[i].printNum(useCard[i].getNum()) << endl;
+		} */
 
 		// cout << result << endl;
 
@@ -289,13 +297,137 @@ public:
 		}
 
 		// u.combination = result;
-		// cout << result << endl;
+		cout << result << endl;
 		return result;
+	}
+
+	EnHandCombination findCombination(EnCard useCard[5]) { // 유저의 카드패 정보가 User에 있다고 가정
+		/*
+		EnHandCombination result = HIGHCARD;
+		EnCard temp;
+		bool straight = false;
+		bool royal = false;
+		bool flush = true;
+		bool fourCard = false;
+		bool threeCard = false;
+		int pairNum = 0;
+
+		cout << "findCombination에서 잘 넘어왔을까요??" << endl;
+		for (int i = 0; i < 5; i++) {
+			cout << useCard[i].printShape(useCard[i].getShape()) << " " << useCard[i].printNum(useCard[i].getNum()) << endl;
+		}
+
+		// cout << result << endl;
+
+		// 카드를 숫자 기준으로 내림차순 정렬
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (useCard[j].getNum() < useCard[j + 1].getNum()) {
+					temp = useCard[j];
+					useCard[j] = useCard[j + 1];
+					useCard[j + 1] = temp;
+				}
+			}
+		}
+
+
+		// 스트레이트, 플러시 확인
+		int straightCnt = 0;
+		for (int i = 0; i < 4; i++) {
+			if (useCard[i].getNum() == useCard[i + 1].getNum() + 1) {
+				straightCnt++;
+			}
+
+			if (useCard[i].getShape() != useCard[i + 1].getShape()) {
+				flush = false; // 모양이 같지 않음 > 플러시 X
+			}
+		}
+
+
+
+		if (straightCnt == 4) {
+			straight = true; // 스트레이트
+			if (useCard[0].getNum() == ACE) {
+				royal = true; // 로얄스트레이트
+			}
+		}
+
+		else if ((straightCnt == 3) && (useCard[0].getNum() == ACE) && (useCard[1].getNum() == FIVE)) {
+			straight = true; // A 5 4 3 2 스트레이트
+		}
+
+		// cout << result << endl;
+
+		// 같은 숫자 확인
+		int tempNum[13] = { 0 };
+		for (int i = 0; i < 5; i++) {
+			// cout << result << endl;
+			tempNum[useCard[i].getNum() - 2] += 1;
+		}
+
+
+		for (int i = 0; i < 13; i++) {
+			switch (tempNum[i]) {
+			case 2:
+				pairNum++; // 페어 한 쌍 추가
+				break;
+			case 3:
+				threeCard = true; // 쓰리카드
+				break;
+			case 4:
+				fourCard = true;  // 포카드
+				break;
+			}
+		}
+
+
+		// cout << result << endl;
+
+		// 최종 족보 결정
+		if (royal && flush) {
+			result = ROYALFLUSH;
+		}
+
+		else if (straight && flush) {
+			result = STRAIGHTFLUSH;
+		}
+
+		else if (fourCard) {
+			result = FOURCARD;
+		}
+
+		else if (threeCard && pairNum == 1) {
+			result = FULLHOUSE;
+		}
+
+		else if (flush) {
+			result = FLUSH;
+		}
+
+		else if (straight) {
+			result = STRAIGHT;
+		}
+
+		else if (threeCard) {
+			result = THREECARD;
+		}
+
+		else if (pairNum == 2) {
+			result = TWOPAIR;
+		}
+
+		else if (pairNum == 1) {
+			result = PAIR;
+		}
+
+		// u.combination = result;
+		cout << result << endl;
+		return result; */
 	}
 
 	// 모든 플레이어의 정보를 가지고 있는 어떠한 클래스에서 유저 정보를 모두 가져옴
 	// User의 combination 값을 비교하여 가장 높은 족보를 가지고 있는 User를 리턴
-	int findWinner() { // 0, 1, 2
+	int findWinner(User user[]) { // 0, 1, 2
 		EnHandCombination high = NOTHING;
 		int tempWinner;
 
@@ -309,14 +441,72 @@ public:
 		return tempWinner;
 	}
 
-	int* Bet(int p[]) {
+	int* Bet(int p[], User* user) {
+		/*	int livePlayer[3];
+		int count = 0;
+		int tempMoney=0;
+		int betMoney = 0;
+		int each_money[3] = { 0, 0, 0 }; // 사용자가 라운드마다 베팅한 총 금액
+
+		int i = 0;
+		boolean flagBet;
+		boolean flagExit=true;
+
+		while (flagExit) {
+
+		for (int i = 0; i < sizeof(user); i++) {
+		livePlayer[i] = p[i];
+		count++;
+		}
+
+		for (int i = 0; i < count; i++) {
+		// i번째 플레이어에게 베팅 요청
+		if (livePlayer[i] != 0) {
+		cout << "배팅 기준 금액: " << betMoney << endl;
+		cout << "현재 배팅 금액: " << each_money[i] << endl;
+		cout << user[i].getPlayerID() << "님의 현재 잔액: " << user[i].getAssets() << endl;
+		cout << endl;
+		tempMoney = user[i].DoBet();
+		this->bettingMoney += tempMoney;
+
+		if (tempMoney == 0) {
+		livePlayer[i] = 0;
+		}
+		else if (tempMoney != 0) {
+		each_money[i] += tempMoney;
+		}
+		else {
+		livePlayer[i] = 0;
+		}
+		}
+		}
+
+		// 플레이어들의 베팅 금액이 동일해졌는지 확인
+		int tempNum = 0;
+		int tempA = 0;
+
+		for (int i; i < count; i++)
+		{
+		if (livePlayer[i] == 1)
+		{
+		tempNum+=each_money[i];
+		tempA++;
+		}
+		}
+
+		if (tempMoney != 0 && tempNum%tempA == 0) {
+		return livePlayer;
+		flagExit = false;
+		}
+		}
+		}*/
 		int livePlayer[3];
 		for (int i = 0; i < 3; i++) {
 			livePlayer[i] = p[i];
 		}
 
 		int tempMoney;
-		int betMoney = 0;
+		int betMoney = -1;
 		int each_money[3] = { 0, 0, 0 }; // 사용자가 라운드마다 베팅한 총 금액
 
 		int i = 0;
@@ -333,12 +523,13 @@ public:
 					cout << "현재 배팅 금액: " << each_money[i] << endl;
 					cout << user[i].getPlayerID() << "님의 현재 잔액: " << user[i].getAssets() << endl;
 					tempMoney = user[i].DoBet();
-					flagBet = (tempMoney == 0) || (tempMoney > betMoney);
+					flagBet = (tempMoney == 0) || (tempMoney >= betMoney - each_money[i]);
 				} while (!flagBet);
 
 				if (tempMoney != 0) {
 					each_money[i] += tempMoney;
 					betMoney = each_money[i];
+					this->bettingMoney += tempMoney;
 				}
 
 				else {
@@ -348,7 +539,7 @@ public:
 
 			// 플레이어들의 베팅 금액이 동일해졌는지 확인
 			for (int j = 0; j < 3; j++) {
-				if ((livePlayer[j] != 0) && (each_money[i] != betMoney)) {
+				if ((livePlayer[j] != 0) && (each_money[j] != betMoney)) {
 					flagExit = false;
 				}
 			}
@@ -368,6 +559,11 @@ public:
 		}
 
 		return livePlayer;
+	}
+
+	int getBetMoney()
+	{
+		return this->bettingMoney;
 	}
 
 	/*

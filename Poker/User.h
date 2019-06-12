@@ -38,6 +38,10 @@ public:
 		return this->combination;
 	}
 
+	void setCombination(EnHandCombination h) {
+		this->combination = h;
+	}
+
 	string getPlayerID() {
 		return this->playerID;
 	}
@@ -56,7 +60,7 @@ public:
 			int BetMoney;
 		case 'Y':
 			while (1) {
-				cout << "추가 배팅금액을 입력해주세요." << endl;
+				cout << "배팅금액을 입력해주세요." << endl;
 				cin >> BetMoney;
 
 				if (BetMoney > this->assets) {
@@ -65,12 +69,14 @@ public:
 				else {
 					this->assets = this->assets - BetMoney;
 					cout << "배팅에 성공하셨습니다." << endl;
+					cout << endl;
 					return BetMoney;
 					break;
 				}
 			}
 		case 'N':
 			cout << "Die" << endl;
+			cout << endl;
 			BetMoney = 0;
 			return BetMoney;
 			break;
@@ -94,6 +100,9 @@ public:
 
 	void showCard() {
 		cout << "==========" << this->playerID << " 의 카드정보==========" << endl;
+
+
+
 
 		for (int i = 0; i < 2; i++) {
 			cout << "Card" << i + 1 << " is " << this->user_card[i].getImage() << " " << user_card[i].getNum() << endl;

@@ -95,4 +95,8 @@ public:
 			break;
 		}
 	}
+
+	void showCard() {
+		cout << this->printShape(this->getShape()) << " " << this->printNum(this->getNum()) << endl;
+	}
 };
