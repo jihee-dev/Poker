@@ -331,6 +331,7 @@ public:
 				do {
 					cout << "배팅 기준 금액: " << betMoney << endl;
 					cout << "현재 배팅 금액: " << each_money[i] << endl;
+					cout << user[i].getPlayerID() << "님의 현재 잔액: " << user[i].getAssets() << endl;
 					tempMoney = user[i].DoBet();
 					flagBet = (tempMoney == 0) || (tempMoney > betMoney);
 				} while (!flagBet);
