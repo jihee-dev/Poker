@@ -9,7 +9,7 @@ using namespace std;
 
 int main() {
 	Board* board = new Board();
-	static MainClass* m = new MainClass();
+	MainClass* m = new MainClass();
 
 	int select;
 	cout << "======= Poker with C++ =======" << endl;

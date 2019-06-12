@@ -1,10 +1,9 @@
 #pragma once
 #include<iostream>
+#include"GameController.h"
 #include"User.h"
 #include"Board.h"
 #include"FileIO.h"
-#include"StaticUser.h"
-#include"GameController.h"
 
 using namespace std;
 
@@ -15,11 +14,11 @@ public:
 		Dealer* dealer = new Dealer();
 		FileIO* fileIO = new FileIO();
 		int playerNum = 3;
+		User user[3];
 		int live[3] = { 1, 1, 1 };
 		int* livePtr;
 		int tempPlayerNum = 0;
 		User winner;
-		User user[3];
 
 
 		// 유저 생성 > 플레이어 수만큼
@@ -37,10 +36,7 @@ public:
 			} while (tempMoney == -1);
 
 			user[i] = *(new User(tempId, tempMoney));
-
-			//user[i] = *(new User(tempId, tempMoney));
 			cout << tempId << "객체가 생성되었습니다!" << endl;
-			cout << user[i].getPlayerID() << " " << user[i].getAssets() << endl;
 		}
 		cout << endl;
 

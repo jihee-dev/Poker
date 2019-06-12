@@ -6,20 +6,21 @@
 #include"Card.h"
 #include"EnCard.h"
 #include"HandCombination.h"
-#include"MainClass.h"
 
 using namespace std;
 
 class GameController {
 private:
 	EnCard openCards[5]; // 딜러가 카드를 셔플 후 오픈된 카드가 생기면 바로 초기화
-	 // Dealer* dealer;
+						 // Dealer* dealer;
 	int bettingMoney;
 	int playerNum = 3;
 	EnCard userCard[3][2];
+	User user[3];
 
 public:
 	GameController() {
+		// dealer = new Dealer();
 	}
 
 	void setOpenCard(Card open[]) { // 오픈 카드 초기화
@@ -114,7 +115,7 @@ public:
 			cout << "4번 공유 카드: ";
 			cout << openCards[3].printShape(openCards[3].getShape()) << " " << openCards[3].printNum(openCards[3].getNum()) << endl;
 			break;
-		
+
 		case 3:
 			cout << "다섯 번째 공유 카드를 오픈합니다." << endl;
 			cout << "5번 공유 카드: ";
@@ -161,7 +162,7 @@ public:
 			cin >> select2;
 			flagSelect = (select1 > 0) && (select1 < 8) && (select1 != select2);
 		} while (!flagSelect);
-		
+
 		int idx = 0;
 
 		for (int i = 0; i < 7; i++) {
@@ -299,9 +300,9 @@ public:
 		int tempWinner;
 
 		for (int i = 0; i < 3; i++) {
-			if (high <= StaticUser::user[i].getCombination()) {
+			if (high <= user[i].getCombination()) {
 				tempWinner = i;
-				high = StaticUser::user[i].getCombination();
+				high = user[i].getCombination();
 			}
 		}
 
@@ -334,7 +335,7 @@ public:
 					tempMoney = user[i].DoBet();
 					flagBet = (tempMoney == 0) || (tempMoney > betMoney);
 				} while (!flagBet);
-				
+
 				if (tempMoney != 0) {
 					each_money[i] += tempMoney;
 					betMoney = each_money[i];
@@ -344,14 +345,14 @@ public:
 					livePlayer[i] = 0;
 				}
 			}
-			
+
 			// 플레이어들의 베팅 금액이 동일해졌는지 확인
 			for (int j = 0; j < 3; j++) {
-				if ((livePlayer[j] != 0) && (each_money[j] != betMoney)) {
+				if ((livePlayer[j] != 0) && (each_money[i] != betMoney)) {
 					flagExit = false;
 				}
 			}
-			
+
 			if (flagExit) {
 				return livePlayer;
 			}
@@ -371,19 +372,19 @@ public:
 
 	/*
 	int askPlayerNum() {
-		do {
-			cout << "플레이어 수를 입력해 주세요(2-8): ";
-			cin >> this->playerNum;
-		} while ((this->playerNum > 1) && (this->playerNum < 9));
-		return this->playerNum;
+	do {
+	cout << "플레이어 수를 입력해 주세요(2-8): ";
+	cin >> this->playerNum;
+	} while ((this->playerNum > 1) && (this->playerNum < 9));
+	return this->playerNum;
 	}
 	*/
 
 	/*
 	void createUser(int n) {
-		for (int i = 0; i < n; i++) {
-			this->user[i] = new User();
-		}
+	for (int i = 0; i < n; i++) {
+	this->user[i] = new User();
+	}
 	} */
 
 };

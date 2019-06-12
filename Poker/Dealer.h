@@ -22,7 +22,6 @@ private:
 	Card user_card[2];
 
 public:
-
 	Dealer() {
 		int square;
 		for (int i = 0; i < 4; i++) {
