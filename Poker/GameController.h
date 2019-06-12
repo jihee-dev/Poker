@@ -98,23 +98,11 @@ public:
 	// 최종 7장의 카드(유저의 패 2장 + 오픈된 패 5장) 중 버릴 두 장의 카드를 선택
 	// View 쪽의 버튼 리스너와 협업하여 작성
 
-	EnCard* askCard(int userNum) {
-		EnCard selectCard[7];
-		EnCard useCard[5];
-		for (int i = 0; i < 5; i++) {
-			selectCard[i] = openCards[i];
-		}
+	Card* askCard(User u/*, Dealer d*/) {
+		Card useCard[5];
 
-		selectCard[5] = userCard[userNum][0];
-		selectCard[6] = userCard[userNum][1];
+		// 버릴 카드 두 장을 제외하고 나머지 카드를 useCard[]에 넣은 후 배열 리턴
 
-		cout << "현재 유저의 보유 카드와 오픈 카드 목록입니다." << endl;
-		for (int i = 0; i < 7; i++) {
-			cout << i + 1 << ". " << selectCard[i].printShape(selectCard[i].getShape()) << " " << selectCard[i].printNum(selectCard[i].getNum()) << endl;
-		}
-
-		cout << "버릴 카드 두 장을 선택해 주세요. (남겨진 다섯 장의 카드로 최종 족보를 결정합니다.";
-		cin << 
 		return useCard;
 	}
 
