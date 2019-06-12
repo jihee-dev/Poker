@@ -10,14 +10,18 @@ using namespace std;
 class User {
 private:
 	Card user_card[2];//유저 고유 카드 2장 
-public:
 	int betMoney; //배팅금액
 	int whoisPlayer;//유저마다 파일입출력 파일을 다르게 만들기 위해 선언됨.(유저간의 구분을 위해)
 	string playerID;//유저의ID
 	int assets;//유저의자산
 
-	// Controller에서 추가
+			   // Controller에서 추가
 	EnHandCombination combination;
+
+public:
+	static string Total[30];
+	static string ID[15];
+	static int Assets[15];
 
 	User() {
 
