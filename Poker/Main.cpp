@@ -16,11 +16,9 @@ public:
 		int playerNum = 3;
 		User user[3];
 
-		/*
 		// 플레이어 수 입력
 		playerNum = controller->askPlayerNum();
 		cout << endl;
-		*/
 
 		// 유저 생성 > 플레이어 수만큼
 		for (int i = 0; i < playerNum; i++) {
@@ -32,7 +30,7 @@ public:
 				flag = checkId(tempId);
 			} while (!flag);
 
-			user[i] = *(new User(i));
+			user[i] = *(new User(tempId));
 		}
 		cout << endl;
 
@@ -45,7 +43,6 @@ public:
 		for (int i = 0; i < playerNum; i++) {
 			dealer->Shuffle();
 			user[i].playerDeck(*dealer);
-			controller->setUserCards(user[i].getUserCard(), i);
 		}
 
 		// 첫 번째 베팅
@@ -83,7 +80,7 @@ public:
 
 
 		// 사용자에게 베팅 금액 추가
-		
+
 
 		// 파일 출력
 
@@ -93,22 +90,6 @@ public:
 
 	boolean checkId(string id) {
 		ifstream ifs;
-		string fileName = "userID.txt";
-		string temp;
-
-		ifs.open(fileName.c_str());
-
-		if (!ifs) {
-			cout << "Unable to open file!" << endl;
-			exit(0);
-		}
-
-		while (ifs >> temp) {
-			if (temp == id) {
-				return true;
-			}
-		}
-
 		return false;
 	}
 };
