@@ -15,6 +15,7 @@ private:
 	int* livePtr;
 	int tempPlayerNum = 0;
 	User winner;
+	string winnername;
 	int totalBetting = 0;
 
 public:
@@ -58,6 +59,13 @@ public:
 		// 첫 번째 베팅
 		cout << "첫 번째 베팅을 시작합니다" << endl;
 		livePtr = controller->Bet(live, user);
+		for (int i = 0; i < 3; i++)
+		{
+			int* tempF = controller->getEachMoney();
+			for (int j = 0; j < 3; j++) {
+				fileIO->setMoney(i, tempF[i]);
+			}
+		}
 		tempPlayerNum = 0;
 
 		for (int i = 0; i < 3; i++) {
@@ -93,8 +101,8 @@ public:
 		if (tempPlayerNum == 1) {
 			goto end;
 		}
-
 		this->totalBetting += controller->getBetMoney();
+		cout << this->totalBetting << endl;
 
 		// 한 개의 카드 오픈(네 번째) (오픈-2)
 		controller->showOpenCard(2);
@@ -115,7 +123,8 @@ public:
 		if (tempPlayerNum == 1) {
 			goto end;
 		}
-
+		this->totalBetting += controller->getBetMoney();
+		cout << this->totalBetting << endl;
 		// 마지막 카드 오픈 (오픈-3)
 		controller->showOpenCard(3);
 		cout << endl;
@@ -135,26 +144,14 @@ public:
 		if (tempPlayerNum == 1) {
 			goto end;
 		}
-
+		this->totalBetting += controller->getBetMoney();
+		cout << this->totalBetting << endl;
 		// 최종 카드 결정, 사용자 족보 판정
 		for (int i = 0; i < 3; i++) {
 			if (live[i] != 0) {
-				// EnCard useCard[5];
-				// cout << controller->askCard(i) << endl;
+
 				user[i].setCombination(controller->askCard(i));
-				/*
-				for (int j = 0; j < 5; j++) {
-					useCard[j] = ask[i];
-				} */
 
-				//cout << "잘 들어갈까요??" << endl;
-				/* for (int j = 0; j < 5; j++) {
-					ask[j].showCard();
-				} */
-
-				// ask[0].showCard();
-
-				// controller->findCombination(ask);
 			}
 		}
 
@@ -177,12 +174,18 @@ public:
 		cout << "Winner is " << winner.getPlayerID() << endl;
 
 		// 사용자에게 베팅 금액 추가
-
+		winnername = winner.getPlayerID();
+		for (int i = 0; i < 15; i++) {
+			if (fileIO->getIDs()[i] == winnername) {
+				fileIO->setMoney(i, this->totalBetting + fileIO->getMoney(i));
+			}
+		}
 
 		// 파일 출력
-
-
+		fileIO->fileSave();
 		// 종료
-
+		cout << endl;
+		cout << "게임이 종료되었습니다!!" << endl;
+		cout << endl;
 	}
 };

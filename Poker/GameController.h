@@ -17,6 +17,8 @@ private:
 	int playerNum = 3;
 	EnCard userCard[3][2];
 	User user[3];
+	int each_money[3];
+
 
 public:
 	GameController() {
@@ -442,64 +444,7 @@ public:
 	}
 
 	int* Bet(int p[], User* user) {
-		/*	int livePlayer[3];
-		int count = 0;
-		int tempMoney=0;
-		int betMoney = 0;
-		int each_money[3] = { 0, 0, 0 }; // 사용자가 라운드마다 베팅한 총 금액
 
-		int i = 0;
-		boolean flagBet;
-		boolean flagExit=true;
-
-		while (flagExit) {
-
-		for (int i = 0; i < sizeof(user); i++) {
-		livePlayer[i] = p[i];
-		count++;
-		}
-
-		for (int i = 0; i < count; i++) {
-		// i번째 플레이어에게 베팅 요청
-		if (livePlayer[i] != 0) {
-		cout << "배팅 기준 금액: " << betMoney << endl;
-		cout << "현재 배팅 금액: " << each_money[i] << endl;
-		cout << user[i].getPlayerID() << "님의 현재 잔액: " << user[i].getAssets() << endl;
-		cout << endl;
-		tempMoney = user[i].DoBet();
-		this->bettingMoney += tempMoney;
-
-		if (tempMoney == 0) {
-		livePlayer[i] = 0;
-		}
-		else if (tempMoney != 0) {
-		each_money[i] += tempMoney;
-		}
-		else {
-		livePlayer[i] = 0;
-		}
-		}
-		}
-
-		// 플레이어들의 베팅 금액이 동일해졌는지 확인
-		int tempNum = 0;
-		int tempA = 0;
-
-		for (int i; i < count; i++)
-		{
-		if (livePlayer[i] == 1)
-		{
-		tempNum+=each_money[i];
-		tempA++;
-		}
-		}
-
-		if (tempMoney != 0 && tempNum%tempA == 0) {
-		return livePlayer;
-		flagExit = false;
-		}
-		}
-		}*/
 		int livePlayer[3];
 		for (int i = 0; i < 3; i++) {
 			livePlayer[i] = p[i];
@@ -507,7 +452,9 @@ public:
 
 		int tempMoney;
 		int betMoney = -1;
-		int each_money[3] = { 0, 0, 0 }; // 사용자가 라운드마다 베팅한 총 금액
+		each_money[0] = 0; // 사용자가 라운드마다 베팅한 총 금액
+		each_money[1] = 0;
+		each_money[2] = 0;
 
 		int i = 0;
 		boolean flagBet;
@@ -565,22 +512,9 @@ public:
 	{
 		return this->bettingMoney;
 	}
-
-	/*
-	int askPlayerNum() {
-	do {
-	cout << "플레이어 수를 입력해 주세요(2-8): ";
-	cin >> this->playerNum;
-	} while ((this->playerNum > 1) && (this->playerNum < 9));
-	return this->playerNum;
+	int* getEachMoney() {
+		return this->each_money;
 	}
-	*/
 
-	/*
-	void createUser(int n) {
-	for (int i = 0; i < n; i++) {
-	this->user[i] = new User();
-	}
-	} */
-
+	
 };

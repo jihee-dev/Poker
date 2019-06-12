@@ -79,6 +79,7 @@ public:
 	void Shard_card() {
 		cout << endl;
 		cout << "-----공유카드를 뽑습니다-----" << endl;
+		srand(time(NULL));
 		for (int i = 0; i < 5; i++) {
 			while (1) {
 				int randn = rand() % 53 + 1;
