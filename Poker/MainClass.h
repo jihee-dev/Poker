@@ -1,9 +1,10 @@
 #pragma once
 #include<iostream>
-#include"GameController.h"
 #include"User.h"
 #include"Board.h"
 #include"FileIO.h"
+#include"StaticUser.h"
+#include"GameController.h"
 
 using namespace std;
 
@@ -14,7 +15,6 @@ public:
 		Dealer* dealer = new Dealer();
 		FileIO* fileIO = new FileIO();
 		int playerNum = 3;
-		User user[3];
 		int live[3] = { 1, 1, 1 };
 		int* livePtr;
 		int tempPlayerNum = 0;
@@ -35,8 +35,10 @@ public:
 				tempMoney = fileIO->checkID(tempId);
 			} while (tempMoney == -1);
 
-			user[i] = *(new User(tempId, tempMoney));
+			StaticUser::user[i] = *(new User(tempId, tempMoney));
+			//user[i] = *(new User(tempId, tempMoney));
 			cout << tempId << "객체가 생성되었습니다!" << endl;
+			cout << StaticUser::user[i].getPlayerID() << " " << StaticUser::user[i].getAssets() << endl;
 		}
 		cout << endl;
 
@@ -48,8 +50,8 @@ public:
 		// 사용자 카드 셋팅
 		for (int i = 0; i < playerNum; i++) {
 			dealer->Shuffle();
-			user[i].playerDeck(*dealer);
-			controller->setUserCards(user[i].getUserCard(), i);
+			StaticUser::user[i].playerDeck(*dealer);
+			controller->setUserCards(StaticUser::user[i].getUserCard(), i);
 		}
 
 		// 첫 번째 베팅
@@ -136,13 +138,13 @@ public:
 		if (tempPlayerNum == 1) {
 			for (int i = 0; i < 3; i++) {
 				if (live[i] == 1) {
-					winner = user[i];
+					winner = StaticUser::user[i];
 				}
 			}
 		}
 
 		else {
-			winner = user[controller->findWinner()];
+			winner = StaticUser::user[controller->findWinner()];
 		}
 
 		cout << "Winner is " << winner.getPlayerID() << endl;

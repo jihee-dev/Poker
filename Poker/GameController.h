@@ -6,6 +6,7 @@
 #include"Card.h"
 #include"EnCard.h"
 #include"HandCombination.h"
+#include"MainClass.h"
 
 using namespace std;
 
@@ -16,11 +17,9 @@ private:
 	int bettingMoney;
 	int playerNum = 3;
 	EnCard userCard[3][2];
-	User user[3];
 
 public:
 	GameController() {
-		// dealer = new Dealer();
 	}
 
 	void setOpenCard(Card open[]) { // 오픈 카드 초기화
@@ -300,9 +299,9 @@ public:
 		int tempWinner;
 
 		for (int i = 0; i < 3; i++) {
-			if (high <= user[i].getCombination()) {
+			if (high <= StaticUser::user[i].getCombination()) {
 				tempWinner = i;
-				high = user[i].getCombination();
+				high = StaticUser::user[i].getCombination();
 			}
 		}
 
@@ -331,8 +330,8 @@ public:
 				do {
 					cout << "배팅 기준 금액: " << betMoney << endl;
 					cout << "현재 배팅 금액: " << each_money[i] << endl;
-					cout << user[i].getPlayerID() << "님의 현재 잔액: " << user[i].getAssets() << endl;
-					tempMoney = user[i].DoBet();
+					cout << StaticUser::user[i].getPlayerID() << "님의 현재 잔액: " << StaticUser::user[i].getAssets() << endl;
+					tempMoney = StaticUser::user[i].DoBet();
 					flagBet = (tempMoney == 0) || (tempMoney > betMoney);
 				} while (!flagBet);
 				
@@ -348,7 +347,7 @@ public:
 			
 			// 플레이어들의 베팅 금액이 동일해졌는지 확인
 			for (int j = 0; j < 3; j++) {
-				if ((livePlayer[j] != 0) && (each_money[i] != betMoney)) {
+				if ((livePlayer[j] != 0) && (each_money[j] != betMoney)) {
 					flagExit = false;
 				}
 			}
