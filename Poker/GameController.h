@@ -1,7 +1,7 @@
 #pragma once
 #include<iostream>
 #include<string>
-// #include"User.h"
+#include"User.h"
 #include"Dealer.h"
 #include"Card.h"
 #include"EnCard.h"
@@ -268,7 +268,7 @@ public:
 
 	// 모든 플레이어의 정보를 가지고 있는 어떠한 클래스에서 유저 정보를 모두 가져옴
 	// User의 combination 값을 비교하여 가장 높은 족보를 가지고 있는 User를 리턴
-	User findWinner(User player[]) {
+	User findWinner() {
 		return;
 	}
 
