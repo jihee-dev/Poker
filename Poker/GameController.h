@@ -97,7 +97,7 @@ public:
 			tempCard->setShape(CLUB);
 		}
 
-
+		return *tempCard;
 	}
 
 	void showOpenCard(int n) {

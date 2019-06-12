@@ -1,9 +1,9 @@
 #pragma once
-#include <string>
-#include <iostream>
-#include <fstream>
-#include "Dealer.h"
-#include "Card.h"
+#include<string>
+#include<iostream>
+#include<fstream>
+#include"Dealer.h"
+#include"Card.h"
 #include"HandCombination.h"
 
 using namespace std;

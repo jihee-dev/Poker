@@ -4,12 +4,12 @@
 //Type: main함수에서 바로 선언해서 함수 사용할 수 있도록 구현 예정
 //User클래스와 협업필요
 #include<iostream>
-#include <stdlib.h>
-#include <time.h>
-#include <cstdlib>
-#include <string>
-#include <Windows.h>
-#include "Card.h"
+#include<stdlib.h>
+#include<time.h>
+#include<cstdlib>
+#include<string>
+#include<Windows.h>
+#include"Card.h"
 using namespace std;
 
 class Dealer {
