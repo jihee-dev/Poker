@@ -27,85 +27,53 @@ public:
 
 	}
 
-	User(int index) {//this->playerNum=index; Index값이 playerNum 값과 같음. +) 유저 참여수에 따라 case 를 더 추가할 예정.
-		switch (index) {
-		case 1:
-		{
-			ofstream ofs;
-			string str = "ID 입력 : ";
-			string str2 = "자산 입력 : ";
-			ofs.open("user1.txt");
-			if (!ofs) {
-				cout << "Can't open file" << endl;
-				exit(0);
+	User(string playerID) {//this->playerNum=index; Index값이 playerNum 값과 같음. +) 유저 참여수에 따라 case 를 더 추가할 예정.
+
+		string line;
+		string test[1000];
+		int str_cnt;
+		int n = 0;
+		int k = 0;
+		int j = 0;
+		ifstream ifs("playerID.txt");
+		while (getline(ifs, line)) {
+			char buff[100];
+			strcpy(buff, line.c_str());
+
+			char* tok = strtok(buff, " ");
+			while (tok != NULL) {
+				Total[n++] = string(tok);
+				tok = strtok(NULL, " ");
 			}
-			cout << str;
-			cin >> playerID;
-			this->playerID = playerID;
-
-			cout << str2;
-			cin >> assets;
-			this->assets = assets;
-
-			ofs << this->playerID << " " << this->assets << endl;
-			cout << "ID, 자산 입력완료" << endl;
-
-			ofs.close();
-			this->whoisPlayer = index;
 		}
-		break;
-		case 2:
-		{
-			ofstream ofs2;
-			string str = "ID 입력 : ";
-			string str2 = "자산 입력 : ";
-			ofs2.open("user2.txt");
-			if (!ofs2) {
-				cout << "Can't open file" << endl;
-				exit(0);
+		ifs.close();
+		for (int i = 0; i < n; i++) {
+			if (i % 2 == 0) {
+				ID[k++] = Total[i];
+
 			}
-			cout << str;
-			cin >> playerID;
-			this->playerID = playerID;
+			else {
+				Assets[j++] = atoi(Total[i].c_str());
 
-			cout << str2;
-			cin >> assets;
-			this->assets = assets;
-
-			ofs2 << this->playerID << " " << this->assets << endl;
-			cout << "ID, 자산 입력완료" << endl;
-
-			ofs2.close();
-			this->whoisPlayer = index;
-		}
-		break;
-		case 3:
-		{
-			ofstream ofs;
-			string str = "ID 입력 : ";
-			string str2 = "자산 입력 : ";
-			ofs.open("user3.txt");
-			if (!ofs) {
-				cout << "Can't open file" << endl;
-				exit(0);
 			}
-			cout << str;
-			cin >> playerID;
-			this->playerID = playerID;
-
-			cout << str2;
-			cin >> assets;
-			this->assets = assets;
-
-			ofs << this->playerID << " " << this->assets << endl;
-			cout << "ID, 자산 입력완료" << endl;
-
-			ofs.close();
-			this->whoisPlayer = index;
 		}
-		break;
+
+		for (int i = 0; i < k; i++) {
+			if (ID[i] == playerID) {
+				this->playerID = ID[i];
+				this->assets = Assets[i];
+				cout << "Complete Set" << endl;
+				break;
+			}
+			else {
+				cout << "Loading.." << endl;
+			}
 		}
-	}//객체를 만들면 유저의 ID와 자산의 DB가 파일에 저장됨.
+		cout << "================" << endl;
+		cout << endl;
+	}
+
+	//객체를 만들면 유저의 ID와 자산의 DB가 파일에 저장됨.
 
 	Card* getUserCard() {
 		return user_card;
