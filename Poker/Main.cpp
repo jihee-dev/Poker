@@ -69,7 +69,6 @@ public:
 		controller->showOpenCard(3);
 		cout << endl;
 
-
 		// 마지막 베팅
 
 
