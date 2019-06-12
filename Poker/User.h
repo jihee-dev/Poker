@@ -100,6 +100,10 @@ public:
 		}
 	}//객체를 만들면 유저의 ID와 자산의 DB가 파일에 저장됨.
 
+	Card* getUserCard() {
+		return this->user_card;
+	}
+
 	bool doBet() {//게임 컨트롤러 클래스의 askBetting() 함수를 끌어와서, 베팅을 할경우 함수 호출. 이외의 경우는, 함수 호출 안함.
 		char answer;
 		while (true) {
