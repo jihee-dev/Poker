@@ -23,9 +23,11 @@ public:
 	void setMoney(int i, int val) {
 		this->money[i] = val;
 	}
+
 	int* getMoneys() {
 		return this->money;
 	}
+
 	int getMoney(int i) {
 		return this->money[i];
 	}

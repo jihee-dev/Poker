@@ -65,14 +65,14 @@ public:
 			int idx;
 
 			for (int j = 0; j < 15; j++) {
-				if (fileIO->getIDs[j]() == user[i].getPlayerID()) {
+				if (fileIO->getIDs()[j] == user[i].getPlayerID()) {
 					idx = j;
 					break;
 				}
 			}
 
 			int* tempF = controller->getEachMoney();
-			fileIO->setMoney(idx, fileIO->getMoney[idx]() - tempF[i]);
+			fileIO->setMoney(idx, fileIO->getMoneys()[idx] - tempF[i]);
 		}
 
 		tempPlayerNum = 0;
@@ -104,14 +104,14 @@ public:
 			int idx;
 
 			for (int j = 0; j < 15; j++) {
-				if (fileIO->getIDs[j]() == user[i].getPlayerID()) {
+				if (fileIO->getIDs()[j] == user[i].getPlayerID()) {
 					idx = j;
 					break;
 				}
 			}
 
 			int* tempF = controller->getEachMoney();
-			fileIO->setMoney(idx, fileIO->getMoney[idx]() - tempF[i]);
+			fileIO->setMoney(idx, fileIO->getMoneys()[idx] - tempF[i]);
 		}
 
 		tempPlayerNum = 0;
@@ -135,6 +135,7 @@ public:
 		cout << endl;
 
 		// 세 번째 베팅
+		cout << "세 번째 베팅을 시작합니다" << endl;
 		livePtr = controller->Bet(live, user);
 
 		for (int i = 0; i < 3; i++)
@@ -142,14 +143,14 @@ public:
 			int idx;
 
 			for (int j = 0; j < 15; j++) {
-				if (fileIO->getIDs[j]() == user[i].getPlayerID()) {
+				if (fileIO->getIDs()[j] == user[i].getPlayerID()) {
 					idx = j;
 					break;
 				}
 			}
 
 			int* tempF = controller->getEachMoney();
-			fileIO->setMoney(idx, fileIO->getMoney[idx]() - tempF[i]);
+			fileIO->setMoney(idx, fileIO->getMoneys()[idx] - tempF[i]);
 		}
 
 		tempPlayerNum = 0;
@@ -173,6 +174,7 @@ public:
 		cout << endl;
 
 		// 마지막 베팅
+		cout << "마지막 베팅을 시작합니다" << endl;
 		livePtr = controller->Bet(live, user);
 
 		for (int i = 0; i < 3; i++)
@@ -180,14 +182,14 @@ public:
 			int idx;
 
 			for (int j = 0; j < 15; j++) {
-				if (fileIO->getIDs[j]() == user[i].getPlayerID()) {
+				if (fileIO->getIDs()[j] == user[i].getPlayerID()) {
 					idx = j;
 					break;
 				}
 			}
 
 			int* tempF = controller->getEachMoney();
-			fileIO->setMoney(idx, fileIO->getMoney[idx]() - tempF[i]);
+			fileIO->setMoney(idx, fileIO->getMoneys()[idx] - tempF[i]);
 		}
 
 		tempPlayerNum = 0;
