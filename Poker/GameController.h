@@ -130,7 +130,7 @@ public:
 	// 최종 7장의 카드(유저의 패 2장 + 오픈된 패 5장) 중 버릴 두 장의 카드를 선택
 	// View 쪽의 버튼 리스너와 협업하여 작성
 
-	EnCard* askCard(int userNum) {
+	EnCard* askCard(int userNum) { // 0, 1, 2
 		EnCard selectCard[7];
 		EnCard useCard[5];
 		for (int i = 0; i < 5; i++) {
@@ -144,7 +144,29 @@ public:
 		for (int i = 0; i < 7; i++) {
 			cout << i + 1 << ". " << selectCard[i].printShape(selectCard[i].getShape()) << " " << selectCard[i].printNum(selectCard[i].getNum()) << endl;
 		}
-		cout << "버릴 카드 두 장을 선택해 주세요. (남겨진 다섯 장의 카드로 ";
+		cout << "버릴 카드 두 장을 선택해 주세요. (남겨진 다섯 장의 카드로 최종 조합을 완성합니다)" << endl;
+
+		int select1;
+		bool flagSelect;
+
+		do {
+			cout << "첫 번째 버릴 카드 입력: ";
+			cin >> select1;
+			flagSelect = (select1 > 0) && (select1 < 8);
+		} while (!flagSelect);
+
+		int select2;
+
+		do {
+			cout << "두 번째 버릴 카드 입력: ";
+			cin >> select2;
+			flagSelect = (select1 > 0) && (select1 < 8) && (select1 != select2);
+		} while (!flagSelect);
+		
+		for (int i = 0; i < 5; i++) {
+
+		}
+
 		return useCard;
 	}
 
