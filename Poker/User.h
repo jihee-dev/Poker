@@ -62,6 +62,7 @@ public:
 			while (1) {
 				cout << "배팅금액을 입력해주세요." << endl;
 				cin >> BetMoney;
+				Sleep(500);
 
 				if (BetMoney > this->assets) {
 					cout << "자산보다 더 많은 금액을 입력하셨습니다." << endl;
@@ -72,6 +73,7 @@ public:
 					cout << endl;
 					return BetMoney;
 					break;
+					Sleep(500);
 				}
 			}
 		case 'N':
@@ -96,6 +98,7 @@ public:
 		for (int i = 0; i < 2; i++) {
 			this->user_card[i] = dealer.getUserCard()[i];
 		}
+		Sleep(500);
 	}
 
 	void showCard() {
@@ -107,5 +110,6 @@ public:
 		for (int i = 0; i < 2; i++) {
 			cout << "Card" << i + 1 << " is " << this->user_card[i].getImage() << " " << user_card[i].getNum() << endl;
 		}
+		Sleep(300);
 	}
 };

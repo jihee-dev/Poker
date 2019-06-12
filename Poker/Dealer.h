@@ -14,10 +14,9 @@ using namespace std;
 
 class Dealer {
 	//private: 전체 카드목록, 각 유저별 카드목록(2장씩)--동적할당 필요, 오픈카드목록
-private:
-	//int num[13] = { 0 }, shape[4] = { 0 };	//카드 전체 목록
+private:   //int num[13] = { 0 }, shape[4] = { 0 };   //카드 전체 목록
 
-	Card opened_card[5];	//오픈카드 목록
+	Card opened_card[5];   //오픈카드 목록
 	Card total_card[53];
 	Card user_card[2];
 
@@ -74,6 +73,7 @@ public:
 		}
 		cout << "--------------------------" << endl;
 		cout << endl;
+		Sleep(300);
 	}
 
 	void Shard_card() {
