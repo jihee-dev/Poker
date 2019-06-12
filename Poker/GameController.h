@@ -14,9 +14,9 @@ private:
 	EnCard openCards[5]; // 딜러가 카드를 셔플 후 오픈된 카드가 생기면 바로 초기화
 	 // Dealer* dealer;
 	int bettingMoney;
-	int playerNum = 3;
-	EnCard userCard[3][2];
-	User user[3];
+	int playerNum;
+	EnCard UserCard[8][2];
+	User user[8];
 
 public:
 	GameController() {
@@ -27,11 +27,6 @@ public:
 		for (int i = 0; i < 5; i++) {
 			this->openCards[i] = this->StructToClass(open[i]);
 		}
-	}
-
-	void setUserCards(Card user[], int temp) {
-		this->userCard[temp][0] = this->StructToClass(user[0]);
-		this->userCard[temp][1] = this->StructToClass(user[1]);
 	}
 
 	EnCard StructToClass(Card c) {
@@ -98,33 +93,6 @@ public:
 		}
 
 
-	}
-
-	void showOpenCard(int n) {
-		switch (n) {
-		case 1:
-			cout << "세 장의 공유 카드를 오픈합니다." << endl;
-			for (int i = 0; i < 3; i++) {
-				cout << i + 1 << "번 공유 카드: ";
-				cout << openCards[i].printShape(openCards[i].getShape()) << " " << openCards[i].printNum(openCards[i].getNum()) << endl;
-			}
-			break;
-
-		case 2:
-			cout << "네 번째 공유 카드를 오픈합니다." << endl;
-			cout << "4번 공유 카드: ";
-			cout << openCards[3].printShape(openCards[3].getShape()) << " " << openCards[3].printNum(openCards[3].getNum()) << endl;
-			break;
-		
-		case 3:
-			cout << "다섯 번째 공유 카드를 오픈합니다." << endl;
-			cout << "5번 공유 카드: ";
-			cout << openCards[4].printShape(openCards[4].getShape()) << " " << openCards[4].printNum(openCards[4].getNum()) << endl;
-			break;
-
-		default:
-			break;
-		}
 	}
 
 	// 최종 7장의 카드(유저의 패 2장 + 오픈된 패 5장) 중 버릴 두 장의 카드를 선택
@@ -271,10 +239,9 @@ public:
 	// 모든 플레이어의 정보를 가지고 있는 어떠한 클래스에서 유저 정보를 모두 가져옴
 	// User의 combination 값을 비교하여 가장 높은 족보를 가지고 있는 User를 리턴
 	User findWinner(User player[]) {
-		return;
+		return NULL;
 	}
 
-	/*
 	int askPlayerNum() {
 		do {
 			cout << "플레이어 수를 입력해 주세요(2-8): ";
@@ -282,7 +249,6 @@ public:
 		} while ((this->playerNum > 1) && (this->playerNum < 9));
 		return this->playerNum;
 	}
-	*/
 
 	/*
 	void createUser(int n) {

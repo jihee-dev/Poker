@@ -10,11 +10,10 @@ class User {
 private:
 	Card user_card[2];//유저 고유 카드 2장 
 public:
-	int assets;//유저의 자산
 	int betMoney; //배팅금액
-	string playerID;//유저ID
 	int whoisPlayer;//유저마다 파일입출력 파일을 다르게 만들기 위해 선언됨.(유저간의 구분을 위해)
-	int fieldMoney;//필드에 깔린 금액.
+	string playerID;//유저의ID
+	int assets;//유저의자산
 
 	User() {
 
@@ -27,7 +26,7 @@ public:
 			ofstream ofs;
 			string str = "ID 입력 : ";
 			string str2 = "자산 입력 : ";
-			ofs.open("userID.txt");
+			ofs.open("user1.txt");
 			if (!ofs) {
 				cout << "Can't open file" << endl;
 				exit(0);
@@ -40,7 +39,7 @@ public:
 			cin >> assets;
 			this->assets = assets;
 
-			ofs << playerID << " " << assets << endl;
+			ofs << this->playerID << " " << this->assets << endl;
 			cout << "ID, 자산 입력완료" << endl;
 
 			ofs.close();
@@ -52,7 +51,7 @@ public:
 			ofstream ofs2;
 			string str = "ID 입력 : ";
 			string str2 = "자산 입력 : ";
-			ofs2.open("userID2.txt");
+			ofs2.open("user2.txt");
 			if (!ofs2) {
 				cout << "Can't open file" << endl;
 				exit(0);
@@ -65,7 +64,7 @@ public:
 			cin >> assets;
 			this->assets = assets;
 
-			ofs2 << playerID << " " << assets << endl;
+			ofs2 << this->playerID << " " << this->assets << endl;
 			cout << "ID, 자산 입력완료" << endl;
 
 			ofs2.close();
@@ -77,7 +76,7 @@ public:
 			ofstream ofs;
 			string str = "ID 입력 : ";
 			string str2 = "자산 입력 : ";
-			ofs.open("userID3.txt");
+			ofs.open("user3.txt");
 			if (!ofs) {
 				cout << "Can't open file" << endl;
 				exit(0);
@@ -90,7 +89,7 @@ public:
 			cin >> assets;
 			this->assets = assets;
 
-			ofs << playerID << " " << assets << endl;
+			ofs << this->playerID << " " << this->assets << endl;
 			cout << "ID, 자산 입력완료" << endl;
 
 			ofs.close();
@@ -100,53 +99,40 @@ public:
 		}
 	}//객체를 만들면 유저의 ID와 자산의 DB가 파일에 저장됨.
 
-	Card* getUserCard() {
-		return this->user_card;
-	}
-
 	bool doBet() {//게임 컨트롤러 클래스의 askBetting() 함수를 끌어와서, 베팅을 할경우 함수 호출. 이외의 경우는, 함수 호출 안함.
 		char answer;
 		while (true) {
 			switch (whoisPlayer) {
 			case 1:
 			{
-				cout << "배팅하시겠습니까? (y/n) ";
+				cout << "배팅하시겠습니까? (Y/N) ";
 				cin >> answer;
-				if (answer == 'y') {
+				if (answer == 'Y'||answer=='y') {
 					while (true) {
 						cout << "배팅할 금액을 입력해 주세요: ";
 						cin >> betMoney;
-						ifstream imoney;
-						imoney.open("fieldMoney.txt");
-						for (int k = 0; k < 1; k++) {
-							imoney >> fieldMoney;
-						}
-						this->fieldMoney = (fieldMoney + betMoney);
-						ofstream omoney("fieldMoney.txt");
-						omoney << fieldMoney << endl;
-						omoney.close();
-						imoney.close();
 						if (betMoney > assets) {
-							cout << "보유 자산 초과. 다시 배팅해주세요." << endl;// 보유자산보다 배팅금액이 클 경우.(수정)
-							this->fieldMoney = fieldMoney;
+							cout << "보유 자산 초과. 다시 배팅해주세요." << endl;// 보유자산보다 배팅금액이 클 경우.
 						}
 						else {
 							ifstream ifs;
-							ifs.open("userID.txt");
+							ifs.open("user1.txt");
 							for (int i = 0; i < 1; i++) {
 								ifs >> playerID >> assets;
 							}//파일 읽어옴
 							this->assets = (assets - betMoney);
-							ofstream ofs("userID.txt");//파일 저장
-							ofs << playerID << assets;//파일 쓰기
-							cout << "Player" << whoisPlayer << "님의 남은 자산은" << this->assets << "입니다" << endl;
+							ofstream ofs("user1.txt");//파일 저장
+							ofs << playerID <<" "<< assets;//파일 쓰기
+							cout << "배팅완료" << endl;
+							cout <<"============"<< this->playerID << "님의 남은 자산은" << this->assets << "입니다==========" << endl;
 							ofs.close();
+							Sleep(2000);
 							return true;
 						}// betMoney<=assets 일 경우=정상 배팅했을 경우
 
 					}
 				}
-				else if (answer == 'n') {
+				else if (answer == 'N'|| answer == 'n') {
 					cout << "배팅을 종료합니다." << endl;
 					return false;
 				}
@@ -160,7 +146,7 @@ public:
 			{
 				cout << "배팅하시겠습니까? (y/n) ";
 				cin >> answer;
-				if (answer == 'y') {
+				if (answer == 'Y' || answer == 'y') {
 					while (true) {
 						cout << "배팅할 금액을 입력해 주세요: ";
 						cin >> betMoney;
@@ -168,31 +154,22 @@ public:
 							cout << "배팅금액이 자산을 초과합니다. 다시 해주세요." << endl;
 						}
 						else {
-							ifstream imoney;
-							imoney.open("fieldMoney.txt");
-							for (int k = 0; k < 1; k++) {
-								imoney >> fieldMoney;
-							}
-							this->fieldMoney = (fieldMoney + betMoney);
-							ofstream omoney("fieldMoney.txt");
-							omoney << fieldMoney << endl;
-							omoney.close();
-							imoney.close();
 							ifstream ifs;
-							ifs.open("userID2.txt");
+							ifs.open("user2.txt");
 							for (int i = 0; i < 1; i++) {
 								ifs >> playerID >> assets;
 							}
 							this->assets = (assets - betMoney);
-							ofstream ofs("userID2.txt");
-							ofs << playerID << assets;
-							cout << "Player" << whoisPlayer << "님의 남은 자산은" << this->assets << "입니다" << endl;
+							ofstream ofs("user2.txt");
+							ofs << playerID << " " << assets;
+							cout <<"==========="<< this->playerID << "님의 남은 자산은" << this->assets << "입니다=========" << endl;
 							ofs.close();
+							Sleep(2000);
 							return true;
 						}//정상배팅 했을경우.
 					}
 				}
-				else if (answer == 'n') {
+				else if (answer == 'n'||answer=='N') {
 					cout << "배팅을 종료합니다." << endl;
 					return false;
 				}
@@ -205,39 +182,30 @@ public:
 			{
 				cout << "배팅하시겠습니까? (y/n) ";
 				cin >> answer;
-				if (answer == 'y') {
+				if (answer == 'Y' || answer == 'y') {
 					while (true) {
 						cout << "배팅할 금액을 입력해 주세요: ";
 						cin >> betMoney;
 						if (betMoney > assets) {
 							cout << "배팅금액이 자산을 초과합니다. 다시 해주세요." << endl;
 						}
-						else {
-							ifstream imoney;
-							imoney.open("fieldMoney.txt");
-							for (int k = 0; k < 1; k++) {
-								imoney >> fieldMoney;
-							}
-							this->fieldMoney = (fieldMoney + betMoney);
-							ofstream omoney("fieldMoney.txt");
-							omoney << fieldMoney << endl;
-							omoney.close();
-							imoney.close();
+						else{
 							ifstream ifs;
-							ifs.open("userID3.txt");
+							ifs.open("user3.txt");
 							for (int i = 0; i < 1; i++) {
 								ifs >> playerID >> assets;
 							}
 							this->assets = (assets - betMoney);
-							ofstream ofs("userID3.txt");
-							ofs << playerID << assets;
-							cout << "Player" << whoisPlayer << "님의 남은 자산은" << this->assets << "입니다" << endl;
+							ofstream ofs("user3.txt");
+							ofs << playerID <<" "<< assets;
+							cout <<"=========="<< this->playerID << "님의 남은 자산은" << this->assets << "입니다===========" << endl;
 							ofs.close();
+							Sleep(2000);
 							return true;
 						}//정상배팅 했을경우.
 					}
 				}
-				else if (answer == 'n') {
+				else if (answer == 'n'||answer=='N') {
 					cout << "배팅을 종료합니다." << endl;
 					return false;
 				}
@@ -251,7 +219,7 @@ public:
 	}//배팅할때 실시간으로 -되는 자산.즉, 배팅하는 함수. betMoney=>배팅금액 
 
 	void allAssetShow() {
-		cout << this->playerID << "님의 총 자산은" << this->assets << "입니다" << endl;
+			cout << this->playerID << "님의 총 자산은" << this->assets << "입니다" << endl;
 	}
 
 	void playerDeck(Dealer dealer) {
