@@ -1,4 +1,4 @@
-playerA 5000
+playerA 15000
 playerB 19800
 playerC 1800
 playerD 10000

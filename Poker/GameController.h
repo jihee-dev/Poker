@@ -330,6 +330,7 @@ public:
 
 		int tempMoney;
 		int betMoney = -1;
+		bettingMoney = 0;
 		each_money[0] = 0; // 사용자가 라운드마다 베팅한 총 금액
 		each_money[1] = 0;
 		each_money[2] = 0;
@@ -344,6 +345,10 @@ public:
 			// i번째 플레이어에게 베팅 요청
 			if (livePlayer[i] != 0) {
 				do {
+					cout << "======= " << user[i].getPlayerID() << "님의 카드 =======" << endl;
+					userCard[i][0].showCard();
+					userCard[i][1].showCard();
+
 					cout << "배팅 기준 금액: " << betMoney << endl;
 					cout << "현재 배팅 금액: " << each_money[i] << endl;
 					cout << user[i].getPlayerID() << "님의 현재 잔액: " << user[i].getAssets() << endl;

@@ -66,7 +66,7 @@ public:
 					user_card[i].setImage(total_card[randn].getImage());
 					user_card[i].setNum(total_card[randn].getNum());
 					total_card[randn].setNum(0);
-					cout << user_card[i].getImage() << " " << user_card[i].getNum() << endl;
+					// cout << user_card[i].getImage() << " " << user_card[i].getNum() << endl;
 					break;
 				}
 			}
@@ -91,10 +91,14 @@ public:
 				}
 			}
 		}
+
+		/*
+		// 공유 카드 테스트
 		for (int i = 0; i < 5; i++) {
 			cout << opened_card[i].getImage() << " " << opened_card[i].getNum() << endl;
 		}
 		cout << "-----------------------------" << endl;
+		*/
 	}
 
 	Card* getUserCard() {
