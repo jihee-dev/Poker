@@ -108,20 +108,24 @@ public:
 			cout << "세 장의 공유 카드를 오픈합니다." << endl;
 			for (int i = 0; i < 3; i++) {
 				cout << i + 1 << "번 공유 카드: ";
-				cout << openCards[i].printShape(openCards[i].getShape()) << " " << openCards[i].printNum(openCards[i].getNum()) << endl;
+				openCards[i].showCard();
 			}
 			break;
 
 		case 2:
 			cout << "네 번째 공유 카드를 오픈합니다." << endl;
-			cout << "4번 공유 카드: ";
-			cout << openCards[3].printShape(openCards[3].getShape()) << " " << openCards[3].printNum(openCards[3].getNum()) << endl;
+			for (int i = 0; i < 4; i++) {
+				cout << i + 1 << "번 공유 카드: ";
+				openCards[i].showCard();
+			}
 			break;
 
 		case 3:
 			cout << "다섯 번째 공유 카드를 오픈합니다." << endl;
-			cout << "5번 공유 카드: ";
-			cout << openCards[4].printShape(openCards[4].getShape()) << " " << openCards[4].printNum(openCards[4].getNum()) << endl;
+			for (int i = 0; i < 5; i++) {
+				cout << i + 1 << "번 공유 카드: ";
+				openCards[i].showCard();
+			}
 			break;
 
 		default:

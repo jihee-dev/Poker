@@ -1,6 +1,6 @@
-playerA 15000
-playerB 19800
-playerC 1800
+playerA 16220
+playerB 19600
+playerC 780
 playerD 10000
 playerE 10000
 playerF 10000
